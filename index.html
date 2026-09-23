@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Out Town | المدينة تبدأ هنا</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #050805;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    /* خلفية */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 80% 20%, rgba(35, 180, 75, 0.18), transparent 30%),
+        radial-gradient(circle at 20% 80%, rgba(35, 180, 75, 0.10), transparent 30%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* النافبار */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 75px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 7%;
+      background: rgba(5, 8, 5, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(50, 255, 100, 0.12);
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 25px;
+      font-weight: bold;
+    }
+
+    .logo-box {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: #20c45a;
+      color: #050805;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 20px;
+      box-shadow: 0 0 25px rgba(32, 196, 90, 0.35);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+    }
+
+    nav a {
+      color: #aaa;
+      text-decoration: none;
+      transition: .3s;
+    }
+
+    nav a:hover {
+      color: #27d963;
+    }
+
+    .discord-btn {
+      background: #20c45a;
+      color: #061008;
+      padding: 11px 20px;
+      border-radius: 9px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: .3s;
+    }
+
+    .discord-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(32, 196, 90, .25);
+    }
+
+    /* الهيرو */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 20px 60px;
+      position: relative;
+    }
+
+    .hero-content {
+      max-width: 900px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 15px;
+      border: 1px solid rgba(39, 217, 99, .35);
+      background: rgba(39, 217, 99, .07);
+      color: #35e56d;
+      border-radius: 50px;
+      margin-bottom: 25px;
+      font-size: 14px;
+    }
+
+    .hero h1 {
+      font-size: clamp(55px, 10vw, 110px);
+      font-weight: 900;
+      line-height: .95;
+      letter-spacing: -5px;
+    }
+
+    .hero h1 span {
+      color: #27d963;
+      text-shadow: 0 0 45px rgba(39, 217, 99, .25);
+    }
+
+    .hero p {
+      color: #9a9a9a;
+      font-size: 19px;
+      max-width: 650px;
+      margin: 30px auto;
+      line-height: 1.8;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .primary {
+      background: #27d963;
+      color: #061008;
+      padding: 15px 30px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: .3s;
+    }
+
+    .primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(39, 217, 99, .25);
+    }
+
+    .secondary {
+      border: 1px solid #252b26;
+      background: #0b0f0c;
+      color: white;
+      padding: 15px 30px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: .3s;
+    }
+
+    .secondary:hover {
+      border-color: #27d963;
+    }
+
+    /* الإحصائيات */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 850px;
+      margin: 0 auto;
+      border: 1px solid #1b231c;
+      border-radius: 18px;
+      overflow: hidden;
+      background: rgba(10, 14, 10, .7);
+    }
+
+    .stat {
+      padding: 30px 15px;
+      text-align: center;
+      border-left: 1px solid #1b231c;
+    }
+
+    .stat:last-child {
+      border-left: none;
+    }
+
+    .stat h2 {
+      color: #27d963;
+      font-size: 30px;
+    }
+
+    .stat p {
+      color: #777;
+      margin-top: 5px;
+    }
+
+    /* الأقسام */
+    section {
+      padding: 110px 7%;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 55px;
+    }
+
+    .section-title span {
+      color: #27d963;
+      font-size: 14px;
+    }
+
+    .section-title h2 {
+      font-size: 42px;
+      margin-top: 10px;
+    }
+
+    .cards {
+      max-width: 1100px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: #0a0e0b;
+      border: 1px solid #192019;
+      padding: 30px;
+      border-radius: 16px;
+      transition: .3s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(39, 217, 99, .5);
+    }
+
+    .card-icon {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(39, 217, 99, .1);
+      color: #27d963;
+      border-radius: 12px;
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    .card h3 {
+      margin-bottom: 12px;
+      font-size: 20px;
+    }
+
+    .card p {
+      color: #777;
+      line-height: 1.8;
+    }
+
+    /* عن المدينة */
+    .about {
+      max-width: 1100px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .about-box {
+      height: 350px;
+      border-radius: 20px;
+      border: 1px solid #1c261e;
+      background:
+        linear-gradient(135deg, rgba(39,217,99,.12), transparent),
+        #090d0a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 80px;
+      font-weight: 900;
+      color: #27d963;
+    }
+
+    .about-text h2 {
+      font-size: 40px;
+      margin-bottom: 20px;
+    }
+
+    .about-text p {
+      color: #858585;
+      line-height: 2;
+    }
+
+    /* CTA */
+    .cta {
+      max-width: 1000px;
+      margin: 30px auto 100px;
+      padding: 70px 30px;
+      text-align: center;
+      border-radius: 25px;
+      border: 1px solid rgba(39,217,99,.2);
+      background:
+        radial-gradient(circle, rgba(39,217,99,.13), transparent 60%),
+        #090d0a;
+    }
+
+    .cta h2 {
+      font-size: 42px;
+      margin-bottom: 15px;
+    }
+
+    .cta p {
+      color: #777;
+      margin-bottom: 30px;
+    }
+
+    /* الفوتر */
+    footer {
+      border-top: 1px solid #161d17;
+      padding: 35px 7%;
+      display: flex;
+      justify-content: space-between;
+      color: #666;
+    }
+
+    footer strong {
+      color: #27d963;
+    }
+
+    /* الجوال */
+    @media (max-width: 800px) {
+      nav ul {
+        display: none;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .stat {
+        border-left: none;
+        border-bottom: 1px solid #1b231c;
+      }
+
+      .stat:last-child {
+        border-bottom: none;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .about {
+        grid-template-columns: 1fr;
+      }
+
+      .about-box {
+        height: 250px;
+      }
+
+      .hero h1 {
+        letter-spacing: -3px;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="logo">
+      <div class="logo-box">OT</div>
+      <span>OUT TOWN</span>
+    </div>
+
+    <ul>
+      <li><a href="#home">الرئيسية</a></li>
+      <li><a href="#about">عن المدينة</a></li>
+      <li><a href="#features">المميزات</a></li>
+      <li><a href="#rules">القوانين</a></li>
+    </ul>
+
+    <a class="discord-btn" href="#" target="_blank">
+      Discord
+    </a>
+  </nav>
+
+
+  <!-- Hero -->
+  <main id="home">
+    <div class="hero">
+      <div class="hero-content">
+
+        <div class="badge">
+          ● OUT TOWN ROLEPLAY
+        </div>
+
+        <h1>
+          أهلاً بك في<br>
+          <span>OUT TOWN</span>
+        </h1>
+
+        <p>
+          مدينة جديدة، حياة جديدة، وقصة تكتبها بنفسك.
+          ادخل عالم Out Town وابدأ رحلتك في واحدة من أكبر تجارب الرول بلاي.
+        </p>
+
+        <div class="buttons">
+          <a href="#" class="primary">
+            🎮 العب الآن
+          </a>
+
+          <a href="#" class="secondary">
+            انضم للديسكورد
+          </a>
+        </div>
+
+        <br><br><br>
+
+        <div class="stats">
+          <div class="stat">
+            <h2>24/7</h2>
+            <p>المدينة</p>
+          </div>
+
+          <div class="stat">
+            <h2>OT</h2>
+            <p>Out Town</p>
+          </div>
+
+          <div class="stat">
+            <h2>∞</h2>
+            <p>قصص لا تنتهي</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+
+  <!-- About -->
+  <section id="about">
+
+    <div class="section-title">
+      <span>ABOUT OUT TOWN</span>
+      <h2>وش هي Out Town؟</h2>
+    </div>
+
+    <div class="about">
+
+      <div class="about-box">
+        OT
+      </div>
+
+      <div class="about-text">
+        <h2>حياتك تبدأ من هنا.</h2>
+
+        <p>
+          Out Town هي مدينة رول بلاي مصممة لتعيش تجربة مختلفة.
+          اختر شخصيتك، كوّن علاقاتك، اشتغل، افتح مشروعك،
+          واصنع قصتك الخاصة داخل المدينة.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- Features -->
+  <section id="features">
+
+    <div class="section-title">
+      <span>FEATURES</span>
+      <h2>وش تقدر تسوي؟</h2>
+    </div>
+
+    <div class="cards">
+
+      <div class="card">
+        <div class="card-icon">🚓</div>
+        <h3>الشرطة</h3>
+        <p>
+          انضم للجهات الأمنية وحافظ على النظام داخل المدينة.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🏥</div>
+        <h3>المستشفى</h3>
+        <p>
+          ساعد المواطنين وكن جزءاً من الخدمات الطبية.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">💼</div>
+        <h3>الوظائف</h3>
+        <p>
+          اختر وظيفتك وابنِ مستقبلك داخل Out Town.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🏪</div>
+        <h3>التجارة</h3>
+        <p>
+          افتح مشروعك الخاص وابدأ تجارتك داخل المدينة.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🚗</div>
+        <h3>السيارات</h3>
+        <p>
+          امتلك سيارتك واستمتع بالتجول في أنحاء المدينة.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🎭</div>
+        <h3>الرول بلاي</h3>
+        <p>
+          اصنع شخصيتك وعش أحداثاً وقصصاً مختلفة كل يوم.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- Rules -->
+  <section id="rules">
+
+    <div class="section-title">
+      <span>SERVER RULES</span>
+      <h2>قوانين المدينة</h2>
+    </div>
+
+    <div class="cards">
+
+      <div class="card">
+        <h3>01 — الاحترام</h3>
+        <p>
+          احترم جميع اللاعبين والإدارة داخل وخارج المدينة.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>02 — Roleplay</h3>
+        <p>
+          حافظ على تجربة الرول بلاي ولا تفسد تجربة الآخرين.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>03 — الإدارة</h3>
+        <p>
+          اتبع تعليمات الإدارة والأنظمة المعتمدة في المدينة.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CTA -->
+  <div class="cta">
+
+    <h2>جاهز تدخل المدينة؟</h2>
+
+    <p>
+      جهز شخصيتك وابدأ قصتك في Out Town.
+    </p>
+
+    <div class="buttons">
+      <a href="#" class="primary">
+        🎮 العب Out Town
+      </a>
+
+      <a href="#" class="secondary">
+        Discord
+      </a>
+    </div>
+
+  </div>
+
+
+  <!-- Footer -->
+  <footer>
+    <div>
+      © 2026 <strong>OUT TOWN</strong>
+    </div>
+
+    <div>
+      جميع الحقوق محفوظة
+    </div>
+  </footer>
+
+</body>
+</html>
